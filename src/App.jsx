@@ -8,7 +8,7 @@ import {AnimatePresence, motion } from "framer-motion" ;
 function App() {
   const [toDo, setToDo] = useState([]);
   const [newTask, setNewTask] = useState('');
-  const [updateData, setUpdateData] = useState(null);
+  const [updateData, setUpdateData] = useState('');
   
   useEffect(() => {
     const savedTasks = localStorage.getItem('toDoList');
