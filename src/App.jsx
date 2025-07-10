@@ -146,7 +146,7 @@ function App() {
                 <div className="iconsWrap">
                   <motion.span 
                     whileHover={{ scale: 1.3 } }  
-                    whileTap={{ scale: 0.7 } } 
+                     
                     onClick={() => markDone(task.id)} 
                     title="Completed / Not Completed">
                     <FontAwesomeIcon icon={faCircleCheck} />
@@ -155,7 +155,7 @@ function App() {
                   {!task.status && (
                     <motion.span
                       whileHover={{ scale: 1.3 } }  
-                      whileTap={{ scale: 0.7 } }
+                      
                       onClick={() =>
                         setUpdateData({
                           id: task.id,
@@ -171,7 +171,7 @@ function App() {
 
                   <motion.span 
                     whileHover={{ scale: 1.3 } }  
-                    whileTap={{ scale: 0.7 } }
+                    
                     onClick={() => deleteTask(task.id)} 
                     title="Delete">
                     <FontAwesomeIcon icon={faTrashCan} />
