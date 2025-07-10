@@ -54,7 +54,7 @@ function App() {
   return (
     <div className="container App">
       <br />
-      <h2>TO-DO</h2>
+      <h1>TO-DO</h1>
       <br />
 
       {/* Input Section */}
