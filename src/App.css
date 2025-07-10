@@ -14,7 +14,7 @@ body {
 
 .done .taskText {
   text-decoration: line-through;
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
 .taskBg {
