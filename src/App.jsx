@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
+import {AnimatePresence, motion } from "framer-motion" ;
 
 function App() {
   const [toDo, setToDo] = useState([]);
@@ -68,12 +69,20 @@ function App() {
               />
             </div>
             <div className="col-auto">
-              <button className="btn btn-lg btn-success mr-2" onClick={updateTask}>
+              <motion.button
+                whileHover={{ scale: 1.1 } }  
+                whileTap={{ scale: 0.9 } } 
+                className="btn btn-lg btn-success mr-2" 
+                onClick={updateTask}>
                 Update
-              </button>
-              <button className="btn btn-lg btn-warning" onClick={cancelUpdate}>
+              </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.1 } }  
+                whileTap={{ scale: 0.9 } } 
+                className="btn btn-lg btn-warning" 
+                onClick={cancelUpdate}>
                 Cancel
-              </button>
+              </motion.button>
             </div>
           </div>
           <br />
@@ -91,9 +100,13 @@ function App() {
               />
             </div>
             <div className="col-auto">
-              <button className="btn btn-lg btn-success" onClick={addTask}>
+              <motion.button 
+                whileHover={{ scale: 1.1 } }  
+                whileTap={{ scale: 0.9 } } 
+                className="btn btn-lg btn-success" 
+                onClick={addTask}>
                 Import Task
-              </button>
+              </motion.button>
             </div>
           </div>
           <br />
@@ -102,43 +115,61 @@ function App() {
 
       {/* Task List */}
       {toDo.length === 0 ? (
-        <h3>💩💩💩</h3>
+        <motion.h3 whileHover={{ scale: 1.3, y:20}}>💩💩💩</motion.h3>
       ) : (
-        toDo
-          .sort((a, b) => a.id - b.id)
-          .map((task, index) => (
-            <div className="col taskBg" key={task.id}>
-              <div className={task.status ? 'done' : ''}>
-                <span className="taskNumber">{index + 1}</span>
-                <span className="taskText">{task.title}</span>
-              </div>
+        <AnimatePresence>
+          {toDo  
+            .sort((a, b) => a.id - b.id)
+            .map((task, index) => (
+              <motion.div 
+                initial={{ opacity: 0, y: -70 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.7 }}
+                className="col taskBg" 
+                key={task.id}>
+                <div className={task.status ? 'done' : ''}>
+                  <motion.span  whileHover={{ scale: 1.5 }} className="taskNumber">{index + 1}</motion.span>
+                  <motion.span whileHover={{ scale: 0.97 }} className="taskText">{task.title}</motion.span>
+                </div>
 
-              <div className="iconsWrap">
-                <span onClick={() => markDone(task.id)} title="Completed / Not Completed">
-                  <FontAwesomeIcon icon={faCircleCheck} />
-                </span>
+                <div className="iconsWrap">
+                  <motion.span 
+                    whileHover={{ scale: 1.3 } }  
+                    whileTap={{ scale: 0.7 } } 
+                    onClick={() => markDone(task.id)} 
+                    title="Completed / Not Completed">
+                    <FontAwesomeIcon icon={faCircleCheck} />
+                  </motion.span>
 
-                {!task.status && (
-                  <span
-                    onClick={() =>
-                      setUpdateData({
-                        id: task.id,
-                        title: task.title,
-                        status: task.status,
-                      })
-                    }
-                    title="Edit"
-                  >
-                    <FontAwesomeIcon icon={faPen} />
-                  </span>
-                )}
+                  {!task.status && (
+                    <motion.span
+                      whileHover={{ scale: 1.3 } }  
+                      whileTap={{ scale: 0.7 } }
+                      onClick={() =>
+                        setUpdateData({
+                          id: task.id,
+                          title: task.title,
+                          status: task.status,
+                        })
+                      }
+                      title="Edit"
+                    >
+                      <FontAwesomeIcon icon={faPen} />
+                    </motion.span>
+                  )}
 
-                <span onClick={() => deleteTask(task.id)} title="Delete">
-                  <FontAwesomeIcon icon={faTrashCan} />
-                </span>
-              </div>
-            </div>
-          ))
+                  <motion.span 
+                    whileHover={{ scale: 1.3 } }  
+                    whileTap={{ scale: 0.7 } }
+                    onClick={() => deleteTask(task.id)} 
+                    title="Delete">
+                    <FontAwesomeIcon icon={faTrashCan} />
+                  </motion.span>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence> 
       )}
     </div>
   );
