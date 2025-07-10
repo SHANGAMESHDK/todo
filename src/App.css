@@ -53,9 +53,7 @@ body {
   outline: none;
 }
 
-.taskBg .iconsWrap span:hover {
-  color: yellow;
-}
+
 
 .mr-20 {
   margin-right: 20px;
