@@ -102,7 +102,7 @@ function App() {
 
       {/* Task List */}
       {toDo.length === 0 ? (
-        <p>💩💩💩</p>
+        <h2>💩💩💩</h2>
       ) : (
         toDo
           .sort((a, b) => a.id - b.id)
