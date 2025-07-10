@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +8,17 @@ import {AnimatePresence, motion } from "framer-motion" ;
 function App() {
   const [toDo, setToDo] = useState([]);
   const [newTask, setNewTask] = useState('');
-  const [updateData, setUpdateData] = useState('');
+  const [updateData, setUpdateData] = useState(null);
+  
+  useEffect(() => {
+    const savedTasks = localStorage.getItem('toDoList');
+  if (savedTasks) {
+    setToDo(JSON.parse(savedTasks));
+  }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('toDoList', JSON.stringify(toDo));
+  }, [toDo]);
 
   // Add Task
   const addTask = () => {
@@ -54,7 +64,7 @@ function App() {
   return (
     <div className="container App">
       <br />
-      <h1>TO-DO</h1>
+      <h2>TO-DO</h2>
       <br />
 
       {/* Input Section */}
