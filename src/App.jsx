@@ -4,61 +4,65 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import {AnimatePresence, motion } from "framer-motion" ;
+import { firestore } from './firebase';
+import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from '@firebase/firestore';
 
 function App() {
   const [toDo, setToDo] = useState([]);
   const [newTask, setNewTask] = useState('');
   const [updateData, setUpdateData] = useState('');
-  
-  useEffect(() => {
-    const savedTasks = localStorage.getItem('toDoList');
-  if (savedTasks) {
-    setToDo(JSON.parse(savedTasks));
-  }
-  }, []);
-  useEffect(() => {
-    localStorage.setItem('toDoList', JSON.stringify(toDo));
-  }, [toDo]);
 
-  // Add Task
-  const addTask = () => {
+  const fetchTasks = async () => {
+    const snapshot = await getDocs(collection(firestore, "tasks"));
+    const tasks = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    setToDo(tasks);
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const addTask = async () => {
     if (newTask) {
-      const num = toDo.length + 1;
-      const newEntry = { id: num, title: newTask, status: false };
-      setToDo([...toDo, newEntry]);
+      const newEntry = {
+        title: newTask,
+        status: false
+      };
+      await addDoc(collection(firestore, "tasks"), newEntry);
       setNewTask('');
+      fetchTasks();
     }
   };
 
-  // Delete Task
-  const deleteTask = (id) => {
-    const newTasks = toDo.filter((task) => task.id !== id);
-    setToDo(newTasks);
+  const deleteTask = async (id) => {
+    await deleteDoc(doc(firestore, "tasks", id));
+    fetchTasks();
   };
 
-  // Mark as Done
-  const markDone = (id) => {
-    const newTasks = toDo.map((task) =>
-      task.id === id ? { ...task, status: !task.status } : task
-    );
-    setToDo(newTasks);
+  const markDone = async (id, currentStatus) => {
+    await updateDoc(doc(firestore, "tasks", id), {
+      status: !currentStatus
+    });
+    fetchTasks();
   };
 
-  // Cancel Update
   const cancelUpdate = () => {
     setUpdateData('');
   };
 
-  // Change Task
   const changeTask = (e) => {
     setUpdateData({ ...updateData, title: e.target.value });
   };
 
-  // Update Task
-  const updateTask = () => {
-    const filtered = toDo.filter((task) => task.id !== updateData.id);
-    setToDo([...filtered, updateData].sort((a, b) => a.id - b.id));
+  const updateTask = async () => {
+    await updateDoc(doc(firestore, "tasks", updateData.id), {
+      title: updateData.title
+    });
     setUpdateData('');
+    fetchTasks();
   };
 
   return (
