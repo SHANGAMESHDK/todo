@@ -29,7 +29,7 @@ function App() {
     if (newTask) {
       const newEntry = {
         title: newTask,
-        status: false
+        
       };
       await addDoc(collection(firestore, "tasks"), newEntry);
       setNewTask('');
