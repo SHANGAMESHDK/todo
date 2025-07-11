@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {AnimatePresence, motion } from "framer-motion" ;
-import { firestore } from './firebase';
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from '@firebase/firestore';
+import { firestore } from './firebase';
+import './App.css';
 
 function App() {
   const [toDo, setToDo] = useState([]);
@@ -106,7 +106,8 @@ function App() {
           <div className="row">
             <div className="col">
               
-              <input
+              <motion.input
+                whileHover={{ scale: 1.02 } }
                 value={newTask}
                 onChange={(e) => setNewTask(e.target.value)}
                 className="form-control form-control-lg "
