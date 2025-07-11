@@ -7,14 +7,15 @@ import {AnimatePresence, motion } from "framer-motion" ;
 import { firestore } from './firebase';
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from '@firebase/firestore';
 
+
 function App() {
   const [toDo, setToDo] = useState([]);
   const [newTask, setNewTask] = useState('');
   const [updateData, setUpdateData] = useState('');
 
   const fetchTasks = async () => {
-    const snapshot = await getDocs(collection(firestore, "tasks"));
-    const tasks = snapshot.docs.map(doc => ({
+    const newone = await getDocs(collection(firestore, "tasks"));
+    const tasks = newone.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
     }));
