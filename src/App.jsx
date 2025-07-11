@@ -7,7 +7,6 @@ import {AnimatePresence, motion } from "framer-motion" ;
 import { firestore } from './firebase';
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from '@firebase/firestore';
 
-
 function App() {
   const [toDo, setToDo] = useState([]);
   const [newTask, setNewTask] = useState('');
@@ -30,6 +29,7 @@ function App() {
     if (newTask) {
       const newEntry = {
         title: newTask,
+        
       };
       await addDoc(collection(firestore, "tasks"), newEntry);
       setNewTask('');
@@ -68,7 +68,7 @@ function App() {
   return (
     <div className="container App">
       <br />
-      <h1>TO-DO</h1>
+      <h1>TO-DO List</h1>
       <br />
 
       {/* Input Section */}
