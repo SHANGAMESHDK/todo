@@ -45,7 +45,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
  'http://localhost:5173',
- 'https://todo000.netlify.app/',
+ 'https://todo000.netlify.app',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
