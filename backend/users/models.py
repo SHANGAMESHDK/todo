@@ -38,7 +38,7 @@ class CustomUser(AbstractUser):
 
 @receiver(reset_password_token_created)
 def password_reset_token_created(reset_password_token, *args, **kwargs):
-    sitelink = 'https://todo000.netlify.app/'
+    sitelink = "http://localhost:5173/"
     token = "{}".format(reset_password_token.key)
     full_link = str(sitelink)+str("password-reset/")+str(token)
 
