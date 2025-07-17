@@ -10,7 +10,7 @@ function Home() {
     
       const response = await AxiosInstance.post('logoutall/');
       console.log('Logout response:', response.data);
-      window.location.href = 'http://localhost:5173/ ';
+      window.location.href = 'https://todo000.netlify.app/';
   };
 
   return (
