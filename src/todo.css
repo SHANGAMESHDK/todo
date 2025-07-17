@@ -1,0 +1,78 @@
+@import "tailwindcss";
+@import "@fontsource/space-grotesk/700.css";
+
+
+body {
+  background-color: #1a1a1a;
+  color: #208c61;
+}
+
+.App {
+  text-align: center;
+  font-family: "Space Grotesk"; 
+}
+
+.done .taskText {
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+.taskBg {
+  background-color: #555;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  padding: 10px 140px 10px 15px;
+  text-align: left;
+  font-size: 22px;
+  position: relative;
+}
+
+.taskBg div {
+  display: flex;
+  align-items: center;
+}
+
+.taskBg .iconsWrap {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  width: auto;
+  display: inline-block;
+}
+
+.taskBg .iconsWrap span {
+  display: inline-block;
+  margin: 0px 10px 0 10px;
+  cursor: pointer;
+  color: #00ff89;
+}
+
+
+.taskBg .iconsWrap span:focus-visible {
+  outline: none;
+}
+
+
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.taskNumber {
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  text-align: center;
+  font-size: 14px;
+  margin-right: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.taskText {
+  flex: 1;
+}
